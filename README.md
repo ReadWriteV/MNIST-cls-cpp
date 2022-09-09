@@ -1,6 +1,6 @@
 # MNIST Cls Cpp
 
-A demo of using libtorch to train models on MNIST dataset for classification.
+A demo of using libtorch to train and test model on MNIST dataset for classification.
 
 ## Build
 
