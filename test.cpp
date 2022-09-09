@@ -59,7 +59,7 @@ int main(int argc, const char *argv[])
         std::cout << "cuda is NOT available, use CPU." << std::endl;
     }
 
-    auto test_data_set = torch::data::datasets::MNIST(mnist_dataset_path, torch::data::datasets::MNIST::Mode::kTest);
+    auto test_data_set = torch::data::datasets::MNIST(mnist_dataset_path, torch::data::datasets::MNIST::Mode::kTest).map(torch::data::transforms::Normalize<>(0.5, 0.5));
     const std::size_t test_dataset_size = test_data_set.size().value();
     std::cout << "MINST dataset loaded, " << test_dataset_size << " testing samples found." << std::endl;
 
