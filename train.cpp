@@ -5,7 +5,8 @@
 
 #include <boost\program_options.hpp>
 
-#include "model.h"
+// #include "simple_net.h"
+#include "lenet5.h"
 
 int main(int argc, const char *argv[])
 {
@@ -66,12 +67,14 @@ int main(int argc, const char *argv[])
 
     auto train_loader = torch::data::make_data_loader(std::move(train_data_set), batch_size);
 
-    MNIST_Cls model(28 * 28, 300, 100, 10);
+    // SimpleNet model(28 * 28, 300, 100, 10);
+    LeNet5 model(28);
     model->to(device);
     auto criterion = torch::nn::CrossEntropyLoss();
 
     auto optimizer = torch::optim::SGD(model->parameters(), torch::optim::SGDOptions(learning_rate).momentum(0.9));
 
+    model->train();
     std::cout << "start training with setting: [epoch: " << epoch_num << ", batch size: " << batch_size << ", learing rate: " << learning_rate << "]" << std::endl;
     auto time_start = std::chrono::system_clock::now();
     for (int i = 1; i <= epoch_num; i++)
@@ -83,7 +86,6 @@ int main(int argc, const char *argv[])
             auto inputs = batch.data.to(device);
             auto labels = batch.target.to(device);
             optimizer.zero_grad();
-            inputs = inputs.view({inputs.size(0), -1});
             auto outputs = model(inputs);
             auto loss = criterion(outputs, labels);
             loss.backward();
@@ -103,7 +105,8 @@ int main(int argc, const char *argv[])
     std::cout << "saving trained model..." << std::endl;
     torch::serialize::OutputArchive ar;
     model->save(ar);
-    ar.save_to("./mnist_cls.pt");
-    std::cout << "trained model saved" << std::endl;
+    const std::string model_file = model->name() + ".pt";
+    ar.save_to(model_file);
+    std::cout << "trained model saved to " << model_file << std::endl;
     return 0;
 }

@@ -29,3 +29,4 @@ Epoch: 5, Batch size: 32, Learing rate: 0.01.
 |            | Correct% | Train Time |
 | ---------- | -------- | ---------- |
 | Simple Net |   88.66  |   13723ms  |
+|  LeNet-5   |   99.05  |   56465ms  |

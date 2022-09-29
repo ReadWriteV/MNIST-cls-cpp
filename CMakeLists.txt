@@ -4,14 +4,14 @@ project(mnist_cls_cpp)
 find_package(Torch REQUIRED)
 find_package(Boost REQUIRED COMPONENTS program_options)
 
-add_library(mnist_cls_model model.cpp)
+add_library(mnist_cls_models simple_net.cpp lenet5.cpp)
 add_executable(train train.cpp)
 add_executable(test test.cpp)
 
-target_link_libraries(mnist_cls_model PUBLIC "${TORCH_LIBRARIES}")
-target_link_libraries(train mnist_cls_model Boost::program_options)
-target_link_libraries(test mnist_cls_model Boost::program_options)
-set_property(TARGET mnist_cls_model train test PROPERTY CXX_STANDARD 17)
+target_link_libraries(mnist_cls_models PUBLIC "${TORCH_LIBRARIES}")
+target_link_libraries(train mnist_cls_models Boost::program_options)
+target_link_libraries(test mnist_cls_models Boost::program_options)
+set_property(TARGET mnist_cls_models train test PROPERTY CXX_STANDARD 17)
 
 # The following code block is suggested to be used on Windows.
 # According to https://github.com/pytorch/pytorch/issues/25457,

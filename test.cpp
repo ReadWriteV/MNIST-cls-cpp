@@ -4,7 +4,8 @@
 
 #include <boost\program_options.hpp>
 
-#include "model.h"
+#include "simple_net.h"
+// #include "lenet5.h"
 
 int main(int argc, const char *argv[])
 {
@@ -13,7 +14,7 @@ int main(int argc, const char *argv[])
     try
     {
         boost::program_options::options_description test_options_desc("Model testing options");
-        test_options_desc.add_options()("help,h", "help guide")("path,p", boost::program_options::value<std::string>(&mnist_dataset_path)->required(), "path to MNIST dataset")("model,m", boost::program_options::value<std::string>(&mnist_cls_model_path)->default_value("./mnist_cls.pt"), "path to MNIST Classification model");
+        test_options_desc.add_options()("help,h", "help guide")("path,p", boost::program_options::value<std::string>(&mnist_dataset_path)->required(), "path to MNIST dataset")("model,m", boost::program_options::value<std::string>(&mnist_cls_model_path)->required(), "path to MNIST Classification model");
         boost::program_options::variables_map vm;
 
         if (argc < 2)
@@ -66,7 +67,9 @@ int main(int argc, const char *argv[])
     constexpr std::size_t batch_size = 64;
     auto test_loader = torch::data::make_data_loader(std::move(test_data_set), batch_size);
 
-    MNIST_Cls model(28 * 28, 300, 100, 10);
+    SimpleNet model(28 * 28, 300, 100, 10);
+    // LeNet5 model(28);
+
     model->to(device);
 
     torch::serialize::InputArchive ar;
@@ -81,7 +84,7 @@ int main(int argc, const char *argv[])
         {
             auto inputs = sample.data.to(device);
             auto labels = sample.target.to(device);
-            inputs = inputs.view({inputs.size(0), -1});
+            inputs = inputs.unsqueeze(0); // [1, 1, 28, 28]
             auto outputs = model(inputs);
             auto [value, id] = torch::max(outputs.data(), 1);
             test_correct += torch::sum(id == labels).item().toInt();
