@@ -2,8 +2,6 @@
 
 #include <torch/torch.h>
 
-#include "model.h"
-
 /// @brief a simple classifier with 3 FC layer for mnist dataset
 class MNIST_ClsImpl : public torch::nn::Module
 {
