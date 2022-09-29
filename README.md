@@ -12,7 +12,7 @@ cmake -S . -B build
 cmake --build build
 ```
 
-## Training and testing
+## Train and test
 
 ``` bash
 # train
