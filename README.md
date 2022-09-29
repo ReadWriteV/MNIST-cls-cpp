@@ -16,8 +16,16 @@ cmake --build build
 
 ``` bash
 # train
-./build/train -p path/to/mnist
+./build/train -p path/to/mnist/dataset
 
 # test
-./build/test -p path/to/mnist
+./build/test -p path/to/mnist/dataset -m path/to/saved/model
 ```
+
+## Benchmark
+
+Epoch: 5, Batch size: 32, Learing rate: 0.01.
+
+|            | Correct% | Train Time |
+| ---------- | -------- | ---------- |
+| Simple Net |   88.66  |   13723ms  |
