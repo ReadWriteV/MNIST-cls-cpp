@@ -1,6 +1,6 @@
 # MNIST Cls Cpp
 
-A demo of using libtorch to train and test model on MNIST dataset for classification.
+A demo of using libtorch to train and test models on MNIST dataset for classification.
 
 ## Build
 
@@ -21,6 +21,20 @@ cmake --build build
 # test
 ./build/test -p path/to/mnist/dataset -m path/to/saved/model
 ```
+
+## Included Models
+
+### Simple Net
+
+A simple classifier with three Fully Connected Layer.
+
+### LeNet 5
+
+Implement of the classical model **LeNet5**, according to *LeCun Y, Bottou L, Bengio Y, et al. Gradient-based learning applied to document recognition[J]. Proceedings of the IEEE, 1998, 86(11): 2278-2324.*
+
+### AlexNet
+
+Implement of the classical model **AlexNet**, according to *Krizhevsky A, Sutskever I, Hinton G E. ImageNet classification with deep convolutional neural networks[C] International Conference on Neural Information Processing Systems. Curran Associates Inc. 2012:1097-1105. with a little modified.*
 
 ## Benchmark
 
