@@ -26,7 +26,10 @@ cmake --build build
 
 Epoch: 5, Batch size: 32, Learing rate: 0.01.
 
+The *Train Time* is measured on the train set with CPU i5-9300H, and the *Correct%* is measured on the test set.
+
 |            | Correct% | Train Time |
 | ---------- | -------- | ---------- |
 | Simple Net |   88.66  |   13723ms  |
 |  LeNet-5   |   99.05  |   56465ms  |
+|  AlexNet   |   90.42  |  too long  |
