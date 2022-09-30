@@ -11,10 +11,11 @@ LeNet5Impl::LeNet5Impl(int input_size) : Module("LeNet5")
 
 torch::Tensor LeNet5Impl::forward(torch::Tensor x)
 {
-    x = torch::nn::functional::max_pool2d(torch::nn::functional::relu(C1(x)), torch::nn::functional::MaxPool2dFuncOptions({2, 2})); // C1 S2
-    x = torch::nn::functional::max_pool2d(torch::nn::functional::relu(C3(x)), torch::nn::functional::MaxPool2dFuncOptions({2, 2})); // C3 S4
-    x = torch::nn::functional::relu(C5(x));                                                                                         // C5
-    x = torch::nn::functional::relu(F6(x.flatten(1)));                                                                              // F6
-    x = OUTPUT(x);                                                                                                                  // OUTPUT
+    namespace F = torch::nn::functional;
+    x = F::max_pool2d(F::relu(C1(x)), F::MaxPool2dFuncOptions({2, 2})); // C1 S2
+    x = F::max_pool2d(F::relu(C3(x)), F::MaxPool2dFuncOptions({2, 2})); // C3 S4
+    x = F::relu(C5(x));                                                 // C5
+    x = F::relu(F6(x.flatten(1)));                                      // F6
+    x = OUTPUT(x);                                                      // OUTPUT
     return x;
 }

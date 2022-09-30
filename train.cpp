@@ -6,7 +6,8 @@
 #include <boost\program_options.hpp>
 
 // #include "simple_net.h"
-#include "lenet5.h"
+// #include "lenet5.h"
+#include "alex_net.h"
 
 int main(int argc, const char *argv[])
 {
@@ -68,7 +69,9 @@ int main(int argc, const char *argv[])
     auto train_loader = torch::data::make_data_loader(std::move(train_data_set), batch_size);
 
     // SimpleNet model(28 * 28, 300, 100, 10);
-    LeNet5 model(28);
+    // LeNet5 model(28);
+    AlexNet model(28, 1);
+
     model->to(device);
     auto criterion = torch::nn::CrossEntropyLoss();
 

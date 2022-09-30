@@ -4,7 +4,7 @@ project(mnist_cls_cpp)
 find_package(Torch REQUIRED)
 find_package(Boost REQUIRED COMPONENTS program_options)
 
-add_library(mnist_cls_models simple_net.cpp lenet5.cpp)
+add_library(mnist_cls_models simple_net.cpp lenet5.cpp alex_net.cpp)
 add_executable(train train.cpp)
 add_executable(test test.cpp)
 
