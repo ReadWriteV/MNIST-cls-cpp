@@ -16,7 +16,7 @@ AlexNetImpl::AlexNetImpl(int input_size, int input_channel) : Module("AlexNet")
 torch::Tensor AlexNetImpl::forward(torch::Tensor x)
 {
     namespace F = torch::nn::functional;
-    x = torch::nn::functional::max_pool2d(F::relu(conv1(x)), F::MaxPool2dFuncOptions(3).stride({2, 2}));
+    x = F::max_pool2d(F::relu(conv1(x)), F::MaxPool2dFuncOptions(3).stride({2, 2}));
     x = F::max_pool2d(F::relu(conv2(x)), F::MaxPool2dFuncOptions(3).stride({2, 2}));
     x = F::relu(conv3(x));
     x = F::relu(conv4(x));
